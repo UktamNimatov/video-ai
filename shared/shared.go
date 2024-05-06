@@ -1,10 +1,8 @@
 package shared
 
-import "mime/multipart"
-
-type TranscriptionResponse struct {
-	Text string `json:"text"`
-}
+import (
+	"mime/multipart"
+)
 
 type TranscriptionRequest struct {
 	File  multipart.File `json:"file"`
@@ -12,24 +10,14 @@ type TranscriptionRequest struct {
 }
 
 type ChatCompletion struct {
-	ID                string   `json:"id"`
-	Object            string   `json:"object"`
-	Created           int64    `json:"created"`
-	Model             string   `json:"model"`
-	Choices           []Choice `json:"choices"`
-	Usage             Usage    `json:"usage"`
-	SystemFingerprint string   `json:"system_fingerprint"`
+	Choices []Choice `json:"choices"`
 }
 
 type Choice struct {
-	Index        int         `json:"index"`
-	Message      Message     `json:"message"`
-	Logprobs     interface{} `json:"logprobs"` // You can define a struct for Logprobs if needed
-	FinishReason string      `json:"finish_reason"`
+	Message Message `json:"message"`
 }
 
 type Message struct {
-	Role    string `json:"role"`
 	Content string `json:"content"`
 }
 
@@ -37,4 +25,25 @@ type Usage struct {
 	PromptTokens     int `json:"prompt_tokens"`
 	CompletionTokens int `json:"completion_tokens"`
 	TotalTokens      int `json:"total_tokens"`
+}
+
+type Segment struct {
+	Start float64 `json:"start"`
+	End   float64 `json:"end"`
+	Text  string  `json:"text"`
+}
+
+type Transcription struct {
+	Task     string    `json:"task"`
+	Language string    `json:"language"`
+	Duration float64   `json:"duration"`
+	Text     string    `json:"text"`
+	Segments []Segment `json:"segments"`
+}
+
+type Result struct {
+	Error         string    `json:"error"`
+	Transcription []Segment `json:"transcription"`
+	Content       string    `json:"content"`
+	HashTags      string    `json:"hashTags"`
 }

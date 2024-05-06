@@ -9,15 +9,17 @@ func main() {
 	// Set environment variables
 	config.LoadConfig()
 
-	//Create a channel to wait for the server to finish
-	done := make(chan bool)
+	// //Create a channel to wait for the server to finish
+	// done := make(chan bool)
 
-	// Start the server in a goroutine
-	go func() {
-		ginreg.GinInit()
-		done <- true
-	}()
+	// // Start the server in a goroutine
+	// go func() {
+	// 	ginreg.GinInit()
+	// 	done <- true
+	// }()
 
-	// Wait for the server to finish
-	<-done
+	// // Wait for the server to finish
+	// <-done
+
+	ginreg.GinInit()
 }
